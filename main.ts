@@ -67,7 +67,7 @@ let myEnemy2 = sprites.create(img`
 
 
 //------------------------------------------------------
-let arrow = 1      //default value of arrow in inventory
+let arrow = 1      //default value of arrow in inventory.
 let addarrow = 0
 let spawnEnemy2 = false
 let enemyCase1 = false
