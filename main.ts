@@ -153,11 +153,18 @@ game.onUpdate(function() {
     projectile.setFlag(SpriteFlag.AutoDestroy, false)
     if (projectile.overlapsWith(myEnemy)&& (projectile.vy!=0 || projectile.vx != 0)) {
         myEnemy.destroy(effects.halo,100)
+        music.bigCrash.play()
         //console.log("1")
         }
     if (projectile.overlapsWith(myEnemy2)&& (projectile.vy!=0 || projectile.vx != 0)) {
         myEnemy2.destroy(effects.halo,100)
+        music.bigCrash.play()
         //console.log("2")
+        }
+    if (projectile.overlapsWith(myEnemy3)&& (projectile.vy!=0 || projectile.vx != 0)) {
+        myEnemy3.destroy(effects.halo,100)
+        music.bigCrash.play()
+        //console.log("1")
         }
      //----------------------------------------------------------------------------------------
 
@@ -174,13 +181,13 @@ game.onUpdate(function() {
     //-------------------------------------
 
     //Enemy 3 movement
-        if(mySprite.y ==40 && mySprite.x > 436.99 && mySprite.x < 442.99 && openLoot == true){
+        if(mySprite.y ==40 && mySprite.x > 435.99 && mySprite.x < 442.99 && openLoot == true){
             console.log("zde")
-            myEnemy3.setPosition(400, 40)
-            myEnemy3.follow(mySprite,69)
+            myEnemy3.setPosition(395, 40)
+            myEnemy3.follow(mySprite,95)
             sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function(sprite: Sprite, otherSprite: Sprite) {
                 info.changeLifeBy(-1)
-                music.bigCrash.play() 
+                music.powerDown.play()
                 myEnemy2.destroy(effects.ashes,100)
         })
         }
@@ -229,14 +236,14 @@ game.onUpdate(function() {
         myEnemy2.follow(mySprite,69)
         sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function(sprite: Sprite, otherSprite: Sprite) {
             info.changeLifeBy(-1)
-            music.bigCrash.play() 
+            music.powerDown.play()
             myEnemy2.destroy(effects.ashes,100)
         })
         }
             if (myEnemy2.overlapsWith(mySprite)){
             //console.log("help")
             info.changeLifeBy(-1)
-            music.bigCrash.play() 
+            music.powerDown.play()
             myEnemy2.destroy(effects.ashes,100)
             
         }
@@ -288,7 +295,7 @@ game.onUpdate(function() {
     //console.log("why help")  
     info.changeLifeBy(-1)
     myEnemy.destroy(effects.ashes,100)  
-    music.bigCrash.play()
+    music.powerDown.play()
     } 
     //-------------------------------------
 
