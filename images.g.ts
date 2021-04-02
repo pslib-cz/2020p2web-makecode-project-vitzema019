@@ -296,24 +296,6 @@ f f f f . f f f f . . . .
 . . . f f f f f f f 4 4 4 
 . . . . f f f f . f f f f 
 `;
-return img`
-. . . . f f f f . . . . . 
-. . f f c c c c f f . . . 
-. f f c c c c c c f f . . 
-f f c c c c c c c c f f . 
-f f c c f c c c c c c f . 
-f f f f f c c c f c c f . 
-f f f f c c c f c c f f . 
-f f f f f f f f f f f f . 
-f f f f f f f f f f f f . 
-. f f f f f f f f f f . . 
-. f f f f f f f f f f . . 
-f e f f f f f f f f e f . 
-e 4 f 7 7 7 7 7 7 c 4 e . 
-e e f 6 6 6 6 6 6 f e e . 
-. . . f f f f f f . . . . 
-. . . f f . . f f . . . . 
-`;
             case "image17":
             case "FOX6":return img`
 . . f 4 f . . . f 4 f . . 

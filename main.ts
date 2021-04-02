@@ -64,6 +64,25 @@ let myEnemy2 = sprites.create(img`
     . . . . . f f . . f f . . . . .
 `,SpriteKind.Enemy)
 //arrow variables
+let myEnemy3 = sprites.create(img`
+    . . . . . . f f f f . . . . . .
+    . . . . f f f 2 2 f f f . . . .
+    . . . f f f 2 2 2 2 f f f . . .
+    . . f f f e e e e e e f f f . .
+    . . f f e 2 2 2 2 2 2 e e f . .
+    . . f e 2 f f f f f f 2 e f . .
+    . . f f f f e e e e f f f f . .
+    . f f e f b f 4 4 f b f e f f .
+    . f e e 4 1 f d d f 1 4 e e f .
+    . . f e e d d d d d d e e f . .
+    . . . f e e 4 4 4 4 e e f . . .
+    . . e 4 f 2 2 2 2 2 2 f 4 e . .
+    . . 4 d f 2 2 2 2 2 2 f d 4 . .
+    . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
+    . . . . . f f f f f f . . . . .
+    . . . . . f f . . f f . . . . .
+            `,SpriteKind.Enemy)
+            myEnemy3.setPosition(-410, -400)
 
 
 //------------------------------------------------------
@@ -71,16 +90,18 @@ let arrow = 1      //default value of arrow in inventory.
 let addarrow = 0
 let spawnEnemy2 = false
 let enemyCase1 = false
+let enemyCase2 = false
 let enemySpeed2 = 65 //enemy speed
 let playerSpeed =75 //player speed
 let arrowVX =playerSpeed  //default direction of arrow
 let arrowVY =-playerSpeed //default direction of arrow
 let enemySpeed = 100
+let openLoot = false
 //-------------------------------------------------------
 
 mySprite.setPosition(45, 45) //set default position of player
 myEnemy.setPosition(40, 105)
-mySprite2.setPosition(200, 80)
+mySprite2.setPosition(392, 71)
 myEnemy2.setPosition(40, 140)
 
 
@@ -152,6 +173,17 @@ game.onUpdate(function() {
     }
     //-------------------------------------
 
+    //Enemy 3 movement
+        if(mySprite.y ==40 && mySprite.x > 436.99 && mySprite.x < 442.99 && openLoot == true){
+            console.log("zde")
+            myEnemy3.setPosition(400, 40)
+            myEnemy3.follow(mySprite,69)
+            sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function(sprite: Sprite, otherSprite: Sprite) {
+                info.changeLifeBy(-1)
+                music.bigCrash.play() 
+                myEnemy2.destroy(effects.ashes,100)
+        })
+        }
    
    
     //Enemy2 movement
@@ -180,6 +212,11 @@ game.onUpdate(function() {
         if(myEnemy2.x < 75 && myEnemy2.x > 71.99 && myEnemy2.y == 200 && enemyCase1 == true){
         myEnemy2.setVelocity(0, -enemySpeed2) 
         }
+
+         if(myEnemy2.x < 75 && myEnemy2.x > 71.99 && myEnemy2.y > 89.99 && myEnemy2.y < 103.99 && myEnemy2.y > 39.99){
+             myEnemy2.follow(mySprite,65)
+        }
+
         else if(myEnemy2.x < 107 && myEnemy2.x > 102.99&& enemyCase1 == false){
         myEnemy2.setVelocity(0, -enemySpeed2) 
         }
@@ -189,20 +226,26 @@ game.onUpdate(function() {
         else if(myEnemy2.x > 140 && myEnemy2.y < 141 && enemyCase1 == false){
         myEnemy2.setVelocity(0,0)
         spawnEnemy2 = false 
-        myEnemy2.follow(mySprite,1000)
+        myEnemy2.follow(mySprite,69)
         sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function(sprite: Sprite, otherSprite: Sprite) {
             info.changeLifeBy(-1)
             music.bigCrash.play() 
             myEnemy2.destroy(effects.ashes,100)
         })
         }
-         if (myEnemy2.overlapsWith(mySprite)){
+            if (myEnemy2.overlapsWith(mySprite)){
             //console.log("help")
             info.changeLifeBy(-1)
             music.bigCrash.play() 
             myEnemy2.destroy(effects.ashes,100)
             
         }
+
+
+
+
+        
+       
     }
     //----------------------------------------------------------------------------------------
 
@@ -229,6 +272,7 @@ game.onUpdate(function() {
             . b b . . . . . . . . . . b b .
         `)
         if(addarrow != 1){
+            openLoot = true
             mySprite2.startEffect(effects.blizzard,1500)
             music.baDing.play()
             mySprite2.say("+5 arrows", 2000)
@@ -429,8 +473,4 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function() {
             projectile = sprites.createProjectileFromSprite(assets.image`--0`, mySprite, -56, -56)
         }            
     })
-
-    game.onUpdate(function() {
-        
-    })  
 //-----------------------------------------------------------------
