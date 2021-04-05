@@ -104,7 +104,6 @@ myEnemy.setPosition(40, 105)
 mySprite2.setPosition(392, 71)
 myEnemy2.setPosition(40, 140)
 
-
 myEnemy2.setFlag(SpriteFlag.Invisible, true)
 myEnemy2.setFlag(SpriteFlag.BounceOnWall, false)
 scene.cameraFollowSprite(mySprite) //camera follow player
@@ -112,7 +111,7 @@ mySprite.setStayInScreen(true)
 mySprite.setFlag(SpriteFlag.StayInScreen, true)
 mySprite.setFlag(SpriteFlag.ShowPhysics, true)
 myEnemy.setFlag(SpriteFlag.BounceOnWall, true)
-mySprite.say("Use A or B to shoot",2000)
+game.splash("Use A or B to shoot")
 controller.moveSprite(mySprite, playerSpeed, playerSpeed); //move with player
 
 sprites.onDestroyed(SpriteKind.Player, function(sprite: Sprite) { 
@@ -133,9 +132,6 @@ function positionY(){ //set last vy before player stop
     return arrowVY
 }
 //-----------------------------------------------------------
-
-
-
 
 
 info.setLife(2)//set vlaue of life variable
@@ -164,7 +160,7 @@ game.onUpdate(function() {
     if (projectile.overlapsWith(myEnemy3)&& (projectile.vy!=0 || projectile.vx != 0)) {
         myEnemy3.destroy(effects.halo,100)
         music.bigCrash.play()
-        //console.log("1")
+        //console.log("3")
         }
      //----------------------------------------------------------------------------------------
 
@@ -175,7 +171,7 @@ game.onUpdate(function() {
     myEnemy.setVelocity(enemySpeed,0)
     }
     if(myEnemy.x > 109 && myEnemy.x < 111){
-    //console.log("ne")
+    //console.log("ano")
     myEnemy.setVelocity(-enemySpeed,0)
     }
     //-------------------------------------
@@ -245,14 +241,7 @@ game.onUpdate(function() {
             info.changeLifeBy(-1)
             music.powerDown.play()
             myEnemy2.destroy(effects.ashes,100)
-            
-        }
-
-
-
-
-        
-       
+        } 
     }
     //----------------------------------------------------------------------------------------
 
@@ -299,9 +288,7 @@ game.onUpdate(function() {
     } 
     //-------------------------------------
 
-
     info.setScore(arrow)//set arrow as score
-
     
     //Projectile
     //-----------------------------
@@ -312,16 +299,6 @@ game.onUpdate(function() {
         arrowVY = positionY()
     }
     //-------------------------------
-
-    //-------------------------------
-    
-        
-    //-------------------------------
-
-
-    //console.log(arrowVX+"X")
-    //console.log(arrowVY+"Y")
-
 
     //player direction
     //-------------------------------------------------------------------   
