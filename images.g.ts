@@ -155,52 +155,6 @@ namespace myImages {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `;
-            case "image9":
-            case "FOX":return img`
-f 4 f . f 4 1 f f . . . . 
-f 4 1 f f f 4 4 f f f . . 
-. f 4 4 4 4 4 4 4 4 f f . 
-. . f 4 7 f 4 4 7 f 4 f . 
-. . f 4 7 f 4 4 7 f 4 f . 
-. . f f 4 4 f f 4 4 4 f . 
-. . . f 1 1 1 1 1 1 f . . 
-. . . f f f f f f f f . . 
-. . f 4 1 1 1 1 1 4 f . . 
-f f 4 1 1 1 1 1 1 1 4 f . 
-f 4 f 1 1 1 1 1 1 1 f 4 f 
-f 4 f 1 1 1 1 1 1 1 f 4 f 
-f 4 f 1 1 1 1 1 1 1 f 4 f 
-f 4 f 1 1 1 1 1 1 1 f 4 f 
-f f f 1 1 1 1 1 1 1 f f f 
-. . f 4 4 1 f 1 4 4 f . . 
-. . f 4 4 4 f 4 4 4 f . . 
-. . f 4 4 4 f 4 4 4 f . . 
-. . . f f f f f f f . . . 
-. . . . f f f f f . . . . 
-`;
-            case "image10":
-            case "FOX0":return img`
-f 4 f . f 4 1 f f . . . . 
-f 4 1 f f f 4 4 f f f . . 
-. f 4 4 4 4 4 4 4 4 f f . 
-. . f 4 7 f 4 4 7 f 4 f . 
-. . f 4 7 f 4 4 7 f 4 f . 
-. . f f 4 4 f f 4 4 4 f . 
-. . . f 1 1 1 1 1 1 f . . 
-. . . f f f f f f f f . . 
-. . f 4 1 1 1 1 1 4 f . . 
-f f 4 1 1 1 1 1 1 1 4 f . 
-f 4 f 1 1 1 1 1 1 1 f 4 f 
-f 4 f 1 1 1 1 1 1 1 f 4 f 
-f 4 f 1 1 1 1 1 1 1 f 4 f 
-f 4 f 1 1 1 1 1 1 1 f 4 f 
-f f f 1 1 1 1 1 1 1 f f f 
-. . f 4 4 1 f 1 4 4 f . . 
-. . f 4 4 4 f 4 4 4 f . . 
-. . f 4 4 4 f 4 4 4 f . . 
-. . . f f f f f f f . . . 
-. . . . f f f f f . . . . 
-`;
             case "image11":
             case "FOX10":return img`
 . . f 4 f . . . f 4 f . . 
@@ -219,63 +173,6 @@ f f f 1 1 1 1 1 1 1 f f f
 . f f f 1 1 1 1 1 f f f . 
 . f f f 4 1 f 1 4 f f f . 
 . . . f 4 4 f 4 4 f . . . 
-`;
-            case "image12":
-            case "FOX1":return img`
-. . f 4 f . . . f 4 f . . 
-. f 1 4 f . . . f 4 1 f . 
-. f 1 4 f f f f f 4 1 f . 
-. f 1 f 4 4 4 4 4 f 1 f . 
-. f f 4 4 4 4 4 4 4 f f . 
-. f 4 4 7 f 4 4 f 7 4 f . 
-. f 4 4 7 f 4 4 f 7 4 f . 
-. f 4 4 4 4 4 4 4 4 4 f . 
-. f 1 4 4 4 f f 4 4 4 f . 
-. . f 1 1 1 1 1 1 1 f . . 
-. f f f f f f f f f f f . 
-. f 4 4 1 1 1 1 1 4 4 f . 
-. f 4 f 1 1 1 1 1 f 4 f . 
-. f f f 1 1 1 1 1 f f f . 
-. f f f 4 1 f 1 4 f f f . 
-. . . f 4 4 f 4 4 f . . . 
-`;
-            case "image13":
-            case "FOX2":return img`
-. . f 4 4 f . f 4 f . . . 
-. . f 4 4 4 f f 4 4 f . . 
-. . f 4 4 4 4 f f 4 4 f . 
-. . f 4 4 4 4 f 4 f 4 f . 
-. . f 4 4 4 4 4 4 4 f f . 
-. . f 4 4 4 4 4 7 f 4 f . 
-. . f 4 4 4 4 4 7 f 4 f . 
-. . f 4 4 4 4 4 4 4 4 f . 
-. . f f 4 4 4 4 4 4 f . . 
-. . . f f f f f f f . . . 
-. . f 4 4 f 4 f 4 4 f . . 
-. . f 4 4 f 4 f 4 4 f . . 
-. f f 4 4 f 4 f 4 4 f . . 
-f 4 f 4 4 f f f 4 4 f . . 
-4 4 4 f f f f f f f . . . 
-f f f f . f f f f . . . . 
-`;
-            case "image14":
-            case "FOX3":return img`
-. . f 4 4 f . f 4 f . . . 
-. . f 4 4 4 f f 4 4 f . . 
-. . f 4 4 4 4 f f 4 4 f . 
-. . f 4 4 4 4 f 4 f 4 f . 
-. . f 4 4 4 4 4 4 4 f f . 
-. . f 4 4 4 4 4 7 f 4 f . 
-. . f 4 4 4 4 4 7 f 4 f . 
-. . f 4 4 4 4 4 4 4 4 f . 
-. . f f 4 4 4 4 4 4 f . . 
-. . . f f f f f f f . . . 
-. . f 4 4 f 4 f 4 4 f . . 
-. . f 4 4 f 4 f 4 4 f . . 
-. f f 4 4 f 4 f 4 4 f . . 
-f 4 f 4 4 f f f 4 4 f . . 
-4 4 4 f f f f f f f . . . 
-f f f f . f f f f . . . . 
 `;
             case "image15":
             case "FOX4":return img`

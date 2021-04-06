@@ -1,5 +1,5 @@
 tiles.setTilemap(tilemap`level2`)
-let mySprite2 = sprites.create(img`
+let chest = sprites.create(img`
     . . b b b b b b b b b b b b . .
     . b e 4 4 4 4 4 4 4 4 4 4 e b .
     b e 4 4 4 4 4 4 4 4 4 4 4 4 e b
@@ -44,7 +44,7 @@ let myEnemy = sprites.create(img`
     ........................
     ........................
     ........................
-`) //set img of enemy
+`,SpriteKind.Enemy) //set img of enemy
 let myEnemy2 = sprites.create(img`
     . . . . . . f f f f . . . . . .
     . . . . f f f 2 2 f f f . . . .
@@ -99,7 +99,7 @@ let openLoot = false
 
 mySprite.setPosition(45, 45) //set default position of player
 myEnemy.setPosition(40, 105)
-mySprite2.setPosition(392, 71)
+chest.setPosition(392, 71)
 myEnemy2.setPosition(40, 140)
 
 myEnemy2.setFlag(SpriteFlag.Invisible, true)
@@ -144,109 +144,17 @@ game.onUpdate(function() {
     //----------------------------------------------------------------------------------------
     projectile.setFlag(SpriteFlag.DestroyOnWall, false)
     projectile.setFlag(SpriteFlag.AutoDestroy, false)
-    if (projectile.overlapsWith(myEnemy)&& (projectile.vy!=0 || projectile.vx != 0)) {
-        myEnemy.destroy(effects.halo,100)
-        music.bigCrash.play()
-        //console.log("1")
-        }
-    if (projectile.overlapsWith(myEnemy2)&& (projectile.vy!=0 || projectile.vx != 0)) {
-        myEnemy2.destroy(effects.halo,100)
-        music.bigCrash.play()
-        //console.log("2")
-        }
-    if (projectile.overlapsWith(myEnemy3)&& (projectile.vy!=0 || projectile.vx != 0)) {
-        myEnemy3.destroy(effects.halo,100)
-        music.bigCrash.play()
-        //console.log("3")
-        }
      //----------------------------------------------------------------------------------------
 
     //patrol enemy
-    //-------------------------------------
-    if(myEnemy.x > 39 && myEnemy.x < 41){
-    //console.log("ne")
-    myEnemy.setVelocity(enemySpeed,0)
-    }
-    if(myEnemy.x > 109 && myEnemy.x < 111){
-    //console.log("ano")
-    myEnemy.setVelocity(-enemySpeed,0)
-    }
-    //-------------------------------------
-
-    //Enemy 3 movement
-        if(mySprite.y ==40 && mySprite.x > 435.99 && mySprite.x < 442.99 && openLoot == true){
-            console.log("zde")
-            myEnemy3.setPosition(395, 40)
-            myEnemy3.follow(mySprite,95)
-            sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function(sprite: Sprite, otherSprite: Sprite) {
-                info.changeLifeBy(-1)
-                music.powerDown.play()
-                myEnemy2.destroy(effects.ashes,100)
-        })
-        }
-   
-   
-    //Enemy2 movement
-    //----------------------------------------------------------------------------------------
-    //console.log(myEnemy2.x+" x")
-    //console.log(myEnemy2.y+ " y")
-    if(mySprite.x >69 && mySprite.x < 76 && mySprite.y >169 && mySprite.x < 181){
-        myEnemy2.setFlag(SpriteFlag.Invisible, false)
-        spawnEnemy2 = true
-    }
-    if(spawnEnemy2 == true){
-        if(myEnemy2.x==40 && myEnemy2.y ==140 ){
-        console.log("jedna")
-        myEnemy2.setVelocity(0, enemySpeed2)
-        }
-        else if(myEnemy2.y < 201 && myEnemy2.y > 199.99 && myEnemy2.x ==40 ){
-        console.log("jedna")
-        myEnemy2.setVelocity(enemySpeed2, 0)
-        }
-        else if(mySprite.x > 69 && mySprite.x < 75 && mySprite.y < 184 && mySprite.y > 39 ){
-        enemyCase1 = true 
-        }
-        else{
-            enemyCase1 = false 
-        }
-        if(myEnemy2.x < 75 && myEnemy2.x > 71.99 && myEnemy2.y == 200 && enemyCase1 == true){
-        myEnemy2.setVelocity(0, -enemySpeed2) 
-        }
-
-         if(myEnemy2.x < 75 && myEnemy2.x > 71.99 && myEnemy2.y > 89.99 && myEnemy2.y < 103.99 && myEnemy2.y > 39.99){
-             myEnemy2.follow(mySprite,65)
-        }
-
-        else if(myEnemy2.x < 107 && myEnemy2.x > 102.99&& enemyCase1 == false){
-        myEnemy2.setVelocity(0, -enemySpeed2) 
-        }
-        if(myEnemy2.x < 107 && myEnemy2.x > 102.99 && myEnemy2.y == 136 && enemyCase1 == false){
-        myEnemy2.setVelocity(enemySpeed2,0) 
-        }
-        else if(myEnemy2.x > 140 && myEnemy2.y < 141 && enemyCase1 == false){
-        myEnemy2.setVelocity(0,0)
-        spawnEnemy2 = false 
-        myEnemy2.follow(mySprite,69)
-        sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function(sprite: Sprite, otherSprite: Sprite) {
-            info.changeLifeBy(-1)
-            music.powerDown.play()
-            myEnemy2.destroy(effects.ashes,100)
-        })
-        }
-            if (myEnemy2.overlapsWith(mySprite)){
-            //console.log("help")
-            info.changeLifeBy(-1)
-            music.powerDown.play()
-            myEnemy2.destroy(effects.ashes,100)
-        } 
-    }
-    //----------------------------------------------------------------------------------------
-
+    enemy1Movement()
+    enemy2Movement()
+    enemy3Movement()
     // loot 2/2
     //-------------------------------------
-    if(mySprite.overlapsWith(mySprite2)){
+    if(mySprite.overlapsWith(chest)){
         
-        mySprite2.setImage(img`
+        chest.setImage(img`
             . b b b b b b b b b b b b b b .
             b e 4 4 4 4 4 4 4 4 4 4 4 4 4 b
             b e 4 4 4 4 4 4 4 4 4 4 4 4 e b
@@ -266,9 +174,9 @@ game.onUpdate(function() {
         `)
         if(addarrow != 1){
             openLoot = true
-            mySprite2.startEffect(effects.blizzard,1500)
+            chest.startEffect(effects.blizzard,1500)
             music.baDing.play()
-            mySprite2.say("+5 arrows", 2000)
+            chest.say("+5 arrows", 2000)
             arrow = arrow +5
             addarrow +=1
         }
@@ -295,31 +203,40 @@ game.onUpdate(function() {
     if(mySprite.vy != 0){
         arrowVY = positionY()
     }
-    //-------------------------------
 
-    //player direction
-    //-------------------------------------------------------------------   
-    controller.right.onEvent(ControllerButtonEvent.Pressed, function() {
-        mySprite.setImage(assets.image`FOX5`)
-    })
-    controller.left.onEvent(ControllerButtonEvent.Pressed, function() {
-        mySprite.setImage(assets.image`FOX4`)
-  
-    })
-    controller.up.onEvent(ControllerButtonEvent.Pressed, function() {
-        mySprite.setImage(assets.image`FOX6`)
-   
-    })
-    controller.down.onEvent(ControllerButtonEvent.Pressed, function() {
-        mySprite.setImage(assets.image`FOX10`)    
-    })
+})
+//Arrow kill enemy ^^
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(sprite: Sprite, otherSprite: Sprite) {
+        if (projectile.vx != 0 || projectile.vy != 0){
+            otherSprite.destroy(effects.halo,100)
+            music.bigCrash.play()
+        }
+            
+        })
+//Enemy kill player :)
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function(sprite: Sprite, otherSprite: Sprite) {
+            info.changeLifeBy(-1)
+            music.powerDown.play()
+            myEnemy2.destroy(effects.ashes,100)
+        })
+        
+//player direction
+controller.right.onEvent(ControllerButtonEvent.Pressed, function() {
+    mySprite.setImage(assets.image`FOX5`)
+})
+controller.left.onEvent(ControllerButtonEvent.Pressed, function() {
+    mySprite.setImage(assets.image`FOX4`)
 
-    //console.log(mySprite.vx);//---------------------------------------------------------------------
-})  
+})
+controller.up.onEvent(ControllerButtonEvent.Pressed, function() {
+    mySprite.setImage(assets.image`FOX6`)
+
+})
+controller.down.onEvent(ControllerButtonEvent.Pressed, function() {
+    mySprite.setImage(assets.image`FOX10`)    
+})
+
 //arrow shoot
-//-----------------------------------------------------------------
-
-
 let projectile= sprites.createProjectileFromSprite(img`
     . . . . .
     . . . . .
@@ -338,6 +255,7 @@ let projectile= sprites.createProjectileFromSprite(img`
     . . . . .
     . . . . .
 `, mySprite, 0, 0)
+
 
 controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
     if (arrowVX== playerSpeed && arrow > 0) {
