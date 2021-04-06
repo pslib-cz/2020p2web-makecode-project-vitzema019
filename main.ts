@@ -18,8 +18,7 @@ let turrets:Sprite[] = []
 turrets.push(sprites.create(assets.image`turret`));turrets[0].setPosition(151, 92)
 turrets.push(sprites.create(assets.image`turret`));turrets[1].setPosition(199, 92)
 turrets.push(sprites.create(assets.image`turret`));turrets[2].setPosition(247, 92)
-turrets.push(sprites.create(assets.image`turret`));turrets[3].setPosition(295, 92)
-            
+turrets.push(sprites.create(assets.image`turret`));turrets[3].setPosition(295, 92)          
 //----------------------------------------------------------------------------------------------------------
 
 // Variables
@@ -31,16 +30,15 @@ let enemyCase1 = false
 let enemyCase2 = false
 let button = false
 let enemySpeed = 100
-let enemySpeed2 = 55 //enemy speed
+let enemy2Speed = 55 //enemy speed
 let enemy3Speed = 90
 let enemy4Speed = 30
 let playerSpeed =75 //player speed
 let arrowSpeed = 150
-let arrowVX =playerSpeed  //default direction of arrow
-let arrowVY =-playerSpeed //default direction of arrow
+let arrowVX =0  //default direction of arrow
+let arrowVY =0  //default direction of arrow
 let openLoot = false
 info.setLife(1)//set vlaue of life variable
-
 //----------------------------------------------------------------------------------------------------------
 
 // Positions - set default positions
@@ -66,8 +64,6 @@ sprites.onDestroyed(SpriteKind.Player, function(sprite: Sprite) { //End game whe
 })
 //----------------------------------------------------------------------------------------------------------
 
-
-
 // Arrow function
 //----------------------------------------------------------------------------------------------------------
 function positionX (){ //set last vx before player stop
@@ -80,7 +76,9 @@ function positionY(){ //set last vy before player stop
     arrowVY = mySprite.vy
     return arrowVY
 }
+//----------------------------------------------------------------------------------------------------------
 
+// Turrets
 //----------------------------------------------------------------------------------------------------------
 game.onUpdateInterval(500, function() {
     if(button == true){
@@ -88,28 +86,30 @@ game.onUpdateInterval(500, function() {
             projectile2 = sprites.createProjectileFromSprite(assets.image`arrowDown`, turret, 0, playerSpeed)
             projectile2.setKind(Projectile2)
             projectile2.setVelocity(0, 200)
-        })
-        
-        
+        }) 
     }
 })
+//----------------------------------------------------------------------------------------------------------
 
-
+// Game update
+//----------------------------------------------------------------------------------------------------------
 game.onUpdate(function() {
+    // Turret activation a deactivation
+    //------------------------------------------------------------------------------------------------------
     if(mySprite.x >114 && mySprite.x < 120 && mySprite.y ==136){
         button = true;
     }
     if(mySprite.x >360 && mySprite.x < 365 && mySprite.y ==136){
         button = false;
     }
-    //turretKill1();
-    //turretKill2();
+    //------------------------------------------------------------------------------------------------------
 
-    
+    // Set arrow as score
+    //------------------------------------------------------------------------------------------------------
+    info.setScore(arrow)
+    //------------------------------------------------------------------------------------------------------
 
-    info.setScore(arrow)//set arrow as score
-
-    //Projectile kill
+    // Projectile kill
     //------------------------------------------------------------------------------------------------------
     projectile.setFlag(SpriteFlag.DestroyOnWall, false) //Projectile will stuck in the wall
     projectile.setFlag(SpriteFlag.AutoDestroy, false) //Projectile will stuck in the wall
@@ -140,7 +140,7 @@ game.onUpdate(function() {
     } 
     //------------------------------------------------------------------------------------------------------
 
-    //Projectile
+    // Projectile
     //------------------------------------------------------------------------------------------------------
     if(mySprite.vx != 0){
         arrowVX = positionX()
@@ -151,9 +151,10 @@ game.onUpdate(function() {
         arrowVX = 0;
         }
     //------------------------------------------------------------------------------------------------------
-    
 })
-//Arrow kill enemy ^^
+//----------------------------------------------------------------------------------------------------------
+
+// Arrow kills enemy ^^
 //----------------------------------------------------------------------------------------------------------
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(sprite: Sprite, otherSprite: Sprite) {
         if (projectile.vx != 0 || projectile.vy != 0){
@@ -163,7 +164,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(sprite: Spri
         })
 //----------------------------------------------------------------------------------------------------------
 
-//Enemy kill player :)
+// Enemy kills player :)
 //----------------------------------------------------------------------------------------------------------
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function(sprite: Sprite, otherSprite: Sprite) {
             info.changeLifeBy(-1)
@@ -171,6 +172,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function(sprite: Sprite, 
             otherSprite.destroy(effects.ashes,100)
         })
 //----------------------------------------------------------------------------------------------------------
+
+// Turret kills player
+//------------------------------------------------------------------------------------------------------
 sprites.onOverlap(SpriteKind.Player,Projectile2 , function(sprite: Sprite, otherSprite: Sprite) {
         if (otherSprite.vx != 0 || otherSprite.vy != 0){
             console.log("help pls")
@@ -179,7 +183,9 @@ sprites.onOverlap(SpriteKind.Player,Projectile2 , function(sprite: Sprite, other
             music.bigCrash.play()
             }   
         })
-//player direction
+//------------------------------------------------------------------------------------------------------
+
+// Player direction
 //----------------------------------------------------------------------------------------------------------
 controller.right.onEvent(ControllerButtonEvent.Pressed, function() {
     mySprite.setImage(assets.image`FOX5`)
@@ -197,7 +203,7 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function() {
 })
 //----------------------------------------------------------------------------------------------------------
 
-//arrow shoot
+// Arrow shoot
 //----------------------------------------------------------------------------------------------------------
 controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
     if (arrowVX== playerSpeed && arrow > 0) {
