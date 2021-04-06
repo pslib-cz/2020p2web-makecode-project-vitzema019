@@ -20,7 +20,6 @@ turrets.push(sprites.create(assets.image`turret`));turrets[1].setPosition(199, 9
 turrets.push(sprites.create(assets.image`turret`));turrets[2].setPosition(247, 92)
 turrets.push(sprites.create(assets.image`turret`));turrets[3].setPosition(295, 92)          
 //----------------------------------------------------------------------------------------------------------
-
 // Variables
 //----------------------------------------------------------------------------------------------------------
 let arrow = 2      //default value of arrow in inventory.
