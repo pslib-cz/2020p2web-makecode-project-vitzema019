@@ -83,8 +83,6 @@ let myEnemy3 = sprites.create(img`
     . . . . . f f . . f f . . . . .
             `,SpriteKind.Enemy)
             myEnemy3.setPosition(-410, -400)
-
-
 //------------------------------------------------------
 let arrow = 1      //default value of arrow in inventory.
 let addarrow = 0
@@ -124,7 +122,6 @@ function positionX (){ //set last vx before player stop
     let arrowVX
     arrowVX = mySprite.vx
     return arrowVX
-    //proč dělám funkci XD, předělávat to už nebudu LMAO
 }
 function positionY(){ //set last vy before player stop
     let arrowVY
