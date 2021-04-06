@@ -54,13 +54,10 @@ function enemy2Movement(){
 
 function enemy3Movement(){
     if(mySprite.y ==40 && mySprite.x > 435.99 && mySprite.x < 442.99 && openLoot == true){
-            console.log("zde")
             myEnemy3.setPosition(395, 40)
-            myEnemy3.follow(mySprite,95)
-            sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function(sprite: Sprite, otherSprite: Sprite) {
-                info.changeLifeBy(-1)
-                music.powerDown.play()
-                myEnemy2.destroy(effects.ashes,100)
-        })
+            myEnemy3.follow(mySprite,enemy3Speed)
+            myEnemy4.setPosition(441, 136)
+            myEnemy4.follow(mySprite,enemy4Speed)
         }
 }
+
