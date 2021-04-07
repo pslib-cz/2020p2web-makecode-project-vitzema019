@@ -63,9 +63,9 @@ myEnemy2.setFlag(SpriteFlag.Invisible, true) //Set enemy invisible
 myEnemy2.setFlag(SpriteFlag.BounceOnWall, false) //Enemy will bounce on wall
 scene.cameraFollowSprite(mySprite) //Camera follow player // Player will stay in screen
 mySprite.setFlag(SpriteFlag.StayInScreen, true) //Player will stay in screen
-mySprite.setFlag(SpriteFlag.ShowPhysics, true) 
+mySprite.setFlag(SpriteFlag.ShowPhysics, false) 
 myEnemy.setFlag(SpriteFlag.BounceOnWall, true) //Enemy will bounce on wall
-game.splash("Use A to shoot to direction you look") //This info will show at the start
+game.splash("Use A to shoot in the direction you are looking") //This info will show at the start
 controller.moveSprite(mySprite, playerSpeed, playerSpeed); //move with player
 sprites.onDestroyed(SpriteKind.Player, function(sprite: Sprite) { //End game when player is out of lives
     game.over()
