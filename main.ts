@@ -5,7 +5,7 @@ let chest = sprites.create(assets.image`Chest`)
 let mySprite = sprites.create(assets.image`FOX10`,SpriteKind.Player) //set img of player
 let myEnemy = sprites.create(assets.image`Enemy1`,SpriteKind.Enemy) //set img of enemy
 let myEnemy2 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
-//arrow variables
+// Arrow variables
 let myEnemy3 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
             myEnemy3.setPosition(-410, -400)
 let myEnemy4 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
