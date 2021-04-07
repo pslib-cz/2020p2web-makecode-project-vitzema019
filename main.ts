@@ -2,26 +2,25 @@
 //----------------------------------------------------------------------------------------------------------
 tiles.setTilemap(tilemap`level2`)
 let chest = sprites.create(assets.image`Chest`)
-let mySprite = sprites.create(assets.image`FOX10`,SpriteKind.Player) //set img of player
-let myEnemy = sprites.create(assets.image`Enemy1`,SpriteKind.Enemy) //set img of enemy
+let mySprite = sprites.create(assets.image`FOX10`,SpriteKind.Player)
+let myEnemy = sprites.create(assets.image`Enemy1`,SpriteKind.Enemy) 
 let myEnemy2 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
 let myEnemy3 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
-            myEnemy3.setPosition(-410, -400)
+myEnemy3.setPosition(-410, -400)
 let myEnemy4 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
-            myEnemy4.setPosition(-410, -400)
+myEnemy4.setPosition(-410, -400)
 let myEnemy6 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
-            myEnemy6.setPosition(361, 361)
-    
-
+myEnemy6.setPosition(361, 361)
 let Projectile2 = SpriteKind.create()
 let projectile= sprites.createProjectileFromSprite(assets.image`arrowNone`, mySprite, 0, 0)
 let projectile2:Sprite= null;
-let projectile3:Sprite = null;
+
 let turrets:Sprite[] = []
 turrets.push(sprites.create(assets.image`turret`));turrets[0].setPosition(151, 92)
 turrets.push(sprites.create(assets.image`turret`));turrets[1].setPosition(199, 92)
 turrets.push(sprites.create(assets.image`turret`));turrets[2].setPosition(247, 92)
-turrets.push(sprites.create(assets.image`turret`));turrets[3].setPosition(295, 92)          
+turrets.push(sprites.create(assets.image`turret`));turrets[3].setPosition(295, 92)    
+
 //----------------------------------------------------------------------------------------------------------
 // Variables
 //----------------------------------------------------------------------------------------------------------
@@ -45,11 +44,9 @@ let openLoot = false
 let x = 50;
 let y = 437;
 let end = 0;
+let score = 0;
 info.setLife(1)//set vlaue of life variable
 //----------------------------------------------------------------------------------------------------------
-
-
-
 
 // Positions - set default positions
 //----------------------------------------------------------------------------------------------------------
@@ -70,9 +67,8 @@ mySprite.setFlag(SpriteFlag.ShowPhysics, false)
 myEnemy.setFlag(SpriteFlag.BounceOnWall, true) //Enemy will bounce on wall
 game.splash("Use A to shoot in the direction you are looking") //This info will show at the start
 controller.moveSprite(mySprite, playerSpeed, playerSpeed); //move with player
-sprites.onDestroyed(SpriteKind.Player, function(sprite: Sprite) { //End game when player is out of lives
-myEnemy6.setFlag(SpriteFlag.BounceOnWall, true)
-
+sprites.onDestroyed(SpriteKind.Player, function(sprite: Sprite) { //End game when player is out of lives   
+    game.over(false)
 })
 //----------------------------------------------------------------------------------------------------------
 
@@ -106,17 +102,7 @@ game.onUpdateInterval(500, function() {
 // Game update
 //----------------------------------------------------------------------------------------------------------
 game.onUpdate(function() {
-
-    // Enemy 6 movement
-    //------------------------------------------------------------------------------------------------------
-    if(myEnemy6.isHittingTile(CollisionDirection.Bottom)){
-    myEnemy6.setVelocity(0, -enemy6Speed)
-    }
-    if(myEnemy6.isHittingTile(CollisionDirection.Top)){
-        myEnemy6.setVelocity(0, enemy6Speed)
-    }
-    //------------------------------------------------------------------------------------------------------
-
+   
     // Wall spawn
     //------------------------------------------------------------------------------------------------------
     if(mySprite.x >140 && mySprite.x < 170 && mySprite.y > 229 && mySprite.y < 248){
@@ -125,28 +111,15 @@ game.onUpdate(function() {
         tiles.setTileAt(tiles.getTileLocation(9, 13),assets.image`floorLight0`)
     }
     //------------------------------------------------------------------------------------------------------
-    
-    // Enemy 5 spawn
-    //------------------------------------------------------------------------------------------------------
-    if(spawnEnemy5 == true && end !=6){
-        for (let i = 0; i < 6; i++) {
-            let myEnemy5 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
-            myEnemy5.setPosition(x, y)
-            x +=50;
-            y -= 20;
-            myEnemy5.follow(mySprite,50)
-            end+=1
-            }
-    }
-    //------------------------------------------------------------------------------------------------------ 
 
-    // Enemy spawn activation
+    // End
     //------------------------------------------------------------------------------------------------------
     if(mySprite.x >410 && mySprite.x < 427 &&  mySprite.y >422 && mySprite.y < 440){
+        info.setScore(score)
         game.over(true)
     }
-
     //------------------------------------------------------------------------------------------------------
+    
     // Turret activation a deactivation
     //------------------------------------------------------------------------------------------------------
     if(mySprite.x >114 && mySprite.x < 120 && mySprite.y ==136){
@@ -159,17 +132,18 @@ game.onUpdate(function() {
 
     // Set arrow as score
     //------------------------------------------------------------------------------------------------------
-    info.setScore(arrow)
+    if(info.life() == 0){
+        info.setScore(score)
+    }
+    if(info.life() != 0){
+        info.setScore(arrow)
+    }
     //------------------------------------------------------------------------------------------------------
 
     // Projectile kill
     //------------------------------------------------------------------------------------------------------
     projectile.setFlag(SpriteFlag.DestroyOnWall, false) //Projectile will stuck in the wall
     projectile.setFlag(SpriteFlag.AutoDestroy, false) //Projectile will stuck in the wall
-    //projectile2.setFlag(SpriteFlag.DestroyOnWall, false) //Projectile will stuck in the wall
-    //projectile2.setFlag(SpriteFlag.AutoDestroy, false) //Projectile will stuck in the wall
-    //projectile3.setFlag(SpriteFlag.DestroyOnWall, false) //Projectile will stuck in the wall
-    //projectile3.setFlag(SpriteFlag.AutoDestroy, false) //Projectile will stuck in the wall
     //------------------------------------------------------------------------------------------------------
 
     // Enemy movement
@@ -177,6 +151,8 @@ game.onUpdate(function() {
     enemy1Movement() //Enemy1 route
     enemy2Movement() //Enemy2 route
     enemy3Movement() //Enemy3 route
+    enemy5Movement() //Enemy5 route
+    enemy6Movement() //Enemy6 route
     //------------------------------------------------------------------------------------------------------
 
     // Loot chest
@@ -213,6 +189,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(sprite: Spri
         if (projectile.vx != 0 || projectile.vy != 0){
             otherSprite.destroy(effects.halo,100)
             music.bigCrash.play()
+            score+=1
             }   
         })
 //----------------------------------------------------------------------------------------------------------
@@ -233,7 +210,7 @@ sprites.onOverlap(SpriteKind.Player,Projectile2 , function(sprite: Sprite, other
             console.log("help pls")
             info.changeLifeBy(-1)
             otherSprite.destroy(effects.halo,100)
-            music.bigCrash.play()
+            music.powerDown.play()
             }   
         })
 //------------------------------------------------------------------------------------------------------
@@ -258,30 +235,5 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function() {
 
 // Arrow shoot
 //----------------------------------------------------------------------------------------------------------
-controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
-    if (arrowVX== playerSpeed && arrow > 0) {
-        music.zapped.play()
-        arrow = arrow - 1 
-        projectile = sprites.createProjectileFromSprite(assets.image`arrowRight`, mySprite, playerSpeed, 0)
-        projectile.setVelocity(arrowSpeed, 0)
-    }
-    if (arrowVX== -playerSpeed && arrow > 0) {
-        music.zapped.play()
-        arrow = arrow - 1 
-        projectile = sprites.createProjectileFromSprite(assets.image`arrowLeft`, mySprite, -playerSpeed, 0)
-        projectile.setVelocity(-arrowSpeed, 0)
-    }  
-     if (arrowVY== playerSpeed && arrow > 0) {
-        music.zapped.play()
-        arrow = arrow - 1 
-    projectile = sprites.createProjectileFromSprite(assets.image`arrowDown`, mySprite, 0, playerSpeed)
-    projectile.setVelocity(0, arrowSpeed)
-    }
-    if (arrowVY== -playerSpeed && arrow > 0) {
-        music.zapped.play()
-        arrow = arrow - 1 
-        projectile =sprites.createProjectileFromSprite(assets.image`arrowUp`, mySprite, 0, -playerSpeed)
-        projectile.setVelocity(0, -arrowSpeed)  
-        }  
-    })
+arrowFnc()
 //----------------------------------------------------------------------------------------------------------

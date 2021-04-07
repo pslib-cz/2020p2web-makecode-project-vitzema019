@@ -15,7 +15,8 @@
         "tilemap.g.ts",
         "images.g.jres",
         "images.g.ts",
-        "Enemy.ts"
+        "Enemy.ts",
+        "Arrow.ts"
     ],
     "testFiles": [
         "test.ts"

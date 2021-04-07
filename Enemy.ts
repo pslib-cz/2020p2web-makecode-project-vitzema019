@@ -1,10 +1,8 @@
 function enemy1Movement(){
     if(myEnemy.x > 39 && myEnemy.x < 41){
-    //console.log("ne")
     myEnemy.setVelocity(enemySpeed,0)
     }
     if(myEnemy.x > 109 && myEnemy.x < 111){
-    //console.log("ano")
     myEnemy.setVelocity(-enemySpeed,0)
     }
 }
@@ -59,4 +57,26 @@ function enemy3Movement(){
             myEnemy4.setPosition(441, 136)
             myEnemy4.follow(mySprite,enemy4Speed)
         }
+}
+
+function enemy5Movement(){
+    if(spawnEnemy5 == true && end !=6){
+        for (let i = 0; i < 6; i++) {
+            let myEnemy5 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
+            myEnemy5.setPosition(x, y)
+            x +=50;
+            y -= 30;
+            myEnemy5.follow(mySprite,45)
+            end+=1
+            }
+    }
+}
+
+function enemy6Movement(){
+   if(myEnemy6.isHittingTile(CollisionDirection.Bottom)){
+    myEnemy6.setVelocity(0, -enemy6Speed)
+    }
+    if(myEnemy6.isHittingTile(CollisionDirection.Top)){
+        myEnemy6.setVelocity(0, enemy6Speed)
+    }
 }
