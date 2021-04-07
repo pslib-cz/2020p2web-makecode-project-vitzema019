@@ -5,11 +5,12 @@ let chest = sprites.create(assets.image`Chest`)
 let mySprite = sprites.create(assets.image`FOX10`,SpriteKind.Player) //set img of player
 let myEnemy = sprites.create(assets.image`Enemy1`,SpriteKind.Enemy) //set img of enemy
 let myEnemy2 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
-// Arrow variables
 let myEnemy3 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
             myEnemy3.setPosition(-410, -400)
 let myEnemy4 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
             myEnemy4.setPosition(-410, -400)
+let myEnemy6 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
+            myEnemy6.setPosition(361, 361)
     
 
 let Projectile2 = SpriteKind.create()
@@ -35,13 +36,14 @@ let enemySpeed = 100
 let enemy2Speed = 55 //enemy speed
 let enemy3Speed = 90
 let enemy4Speed = 30
+let enemy6Speed = 65
 let playerSpeed =75 //player speed
 let arrowSpeed = 150
 let arrowVX =0  //default direction of arrow
 let arrowVY =0  //default direction of arrow
 let openLoot = false
 let x = 50;
-let y = 330;
+let y = 437;
 let end = 0;
 info.setLife(1)//set vlaue of life variable
 //----------------------------------------------------------------------------------------------------------
@@ -55,6 +57,7 @@ mySprite.setPosition(45, 45)
 myEnemy.setPosition(40, 105)
 chest.setPosition(392, 71)
 myEnemy2.setPosition(40, 140)
+myEnemy6.setVelocity(0, -enemy6Speed)
 //----------------------------------------------------------------------------------------------------------
 
 // Flags and other
@@ -68,7 +71,8 @@ myEnemy.setFlag(SpriteFlag.BounceOnWall, true) //Enemy will bounce on wall
 game.splash("Use A to shoot in the direction you are looking") //This info will show at the start
 controller.moveSprite(mySprite, playerSpeed, playerSpeed); //move with player
 sprites.onDestroyed(SpriteKind.Player, function(sprite: Sprite) { //End game when player is out of lives
-    game.over()
+myEnemy6.setFlag(SpriteFlag.BounceOnWall, true)
+
 })
 //----------------------------------------------------------------------------------------------------------
 
@@ -102,27 +106,47 @@ game.onUpdateInterval(500, function() {
 // Game update
 //----------------------------------------------------------------------------------------------------------
 game.onUpdate(function() {
+
+    // Enemy 6 movement
+    //------------------------------------------------------------------------------------------------------
+    if(myEnemy6.isHittingTile(CollisionDirection.Bottom)){
+    myEnemy6.setVelocity(0, -enemy6Speed)
+    }
+    if(myEnemy6.isHittingTile(CollisionDirection.Top)){
+        myEnemy6.setVelocity(0, enemy6Speed)
+    }
+    //------------------------------------------------------------------------------------------------------
+
+    // Wall spawn
+    //------------------------------------------------------------------------------------------------------
     if(mySprite.x >140 && mySprite.x < 170 && mySprite.y > 229 && mySprite.y < 248){
         spawnEnemy5 = true;
         tiles.setWallAt(tiles.getTileLocation(9, 13), true)
         tiles.setTileAt(tiles.getTileLocation(9, 13),assets.image`floorLight0`)
     }
+    //------------------------------------------------------------------------------------------------------
     
-    
+    // Enemy 5 spawn
+    //------------------------------------------------------------------------------------------------------
     if(spawnEnemy5 == true && end !=6){
         for (let i = 0; i < 6; i++) {
             let myEnemy5 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
             myEnemy5.setPosition(x, y)
             x +=50;
-            y += 80;
-            myEnemy5.follow(mySprite,75)
+            y -= 20;
+            myEnemy5.follow(mySprite,50)
             end+=1
             }
-    } 
+    }
+    //------------------------------------------------------------------------------------------------------ 
 
+    // Enemy spawn activation
+    //------------------------------------------------------------------------------------------------------
     if(mySprite.x >410 && mySprite.x < 427 &&  mySprite.y >422 && mySprite.y < 440){
         game.over(true)
     }
+
+    //------------------------------------------------------------------------------------------------------
     // Turret activation a deactivation
     //------------------------------------------------------------------------------------------------------
     if(mySprite.x >114 && mySprite.x < 120 && mySprite.y ==136){
