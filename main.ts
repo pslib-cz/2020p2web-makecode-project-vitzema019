@@ -102,7 +102,7 @@ game.onUpdateInterval(500, function() {
 // Game update
 //----------------------------------------------------------------------------------------------------------
 game.onUpdate(function() {
-    if(mySprite.x >148 && mySprite.x < 164 && mySprite.y > 232 && mySprite.y < 248){
+    if(mySprite.x >140 && mySprite.x < 170 && mySprite.y > 229 && mySprite.y < 248){
         spawnEnemy5 = true;
         tiles.setWallAt(tiles.getTileLocation(9, 13), true)
         tiles.setTileAt(tiles.getTileLocation(9, 13),assets.image`floorLight0`)
@@ -260,6 +260,4 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
         projectile.setVelocity(0, -arrowSpeed)  
         }  
     })
-
-
 //----------------------------------------------------------------------------------------------------------
