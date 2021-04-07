@@ -10,6 +10,8 @@ let myEnemy3 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
             myEnemy3.setPosition(-410, -400)
 let myEnemy4 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
             myEnemy4.setPosition(-410, -400)
+    
+
 let Projectile2 = SpriteKind.create()
 let projectile= sprites.createProjectileFromSprite(assets.image`arrowNone`, mySprite, 0, 0)
 let projectile2:Sprite= null;
@@ -25,6 +27,7 @@ turrets.push(sprites.create(assets.image`turret`));turrets[3].setPosition(295, 9
 let arrow = 2      //default value of arrow in inventory.
 let addarrow = 0
 let spawnEnemy2 = false
+let spawnEnemy5 = false
 let enemyCase1 = false
 let enemyCase2 = false
 let button = false
@@ -37,8 +40,14 @@ let arrowSpeed = 150
 let arrowVX =0  //default direction of arrow
 let arrowVY =0  //default direction of arrow
 let openLoot = false
+let x = 50;
+let y = 330;
+let end = 0;
 info.setLife(1)//set vlaue of life variable
 //----------------------------------------------------------------------------------------------------------
+
+
+
 
 // Positions - set default positions
 //----------------------------------------------------------------------------------------------------------
@@ -93,6 +102,27 @@ game.onUpdateInterval(500, function() {
 // Game update
 //----------------------------------------------------------------------------------------------------------
 game.onUpdate(function() {
+    if(mySprite.x >148 && mySprite.x < 164 && mySprite.y > 232 && mySprite.y < 248){
+        spawnEnemy5 = true;
+        tiles.setWallAt(tiles.getTileLocation(9, 13), true)
+        tiles.setTileAt(tiles.getTileLocation(9, 13),assets.image`floorLight0`)
+    }
+    
+    
+    if(spawnEnemy5 == true && end !=6){
+        for (let i = 0; i < 6; i++) {
+            let myEnemy5 = sprites.create(assets.image`Enemy2`,SpriteKind.Enemy)
+            myEnemy5.setPosition(x, y)
+            x +=50;
+            y += 80;
+            myEnemy5.follow(mySprite,75)
+            end+=1
+            }
+    } 
+
+    if(mySprite.x >410 && mySprite.x < 427 &&  mySprite.y >422 && mySprite.y < 440){
+        game.over(true)
+    }
     // Turret activation a deactivation
     //------------------------------------------------------------------------------------------------------
     if(mySprite.x >114 && mySprite.x < 120 && mySprite.y ==136){
@@ -132,8 +162,8 @@ game.onUpdate(function() {
         if(openLoot == false){ //If chest is lock player will be able to open it
             chest.startEffect(effects.blizzard,1500) //Effect after open chest
             music.baDing.play() //Play sound effect
-            chest.say("+5 arrows", 2000) // Message
-            arrow = arrow +5 //Add 5 arrows to your inventory
+            chest.say("+8 arrows", 2000) // Message
+            arrow = arrow +8 //Add 5 arrows to your inventory
             openLoot = true //Variable is checking if player opens chest during playing
         }
     } 
@@ -230,4 +260,6 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
         projectile.setVelocity(0, -arrowSpeed)  
         }  
     })
+
+
 //----------------------------------------------------------------------------------------------------------

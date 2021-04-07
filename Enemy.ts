@@ -60,4 +60,3 @@ function enemy3Movement(){
             myEnemy4.follow(mySprite,enemy4Speed)
         }
 }
-

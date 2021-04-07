@@ -408,7 +408,7 @@ b b b b b b b b b b b b b b b b
 . . . . . . . . . . . . . . . . 
 `;
             case "image24":
-            case "Enemy3":return img`
+            case "Enemy0":return img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -446,7 +446,7 @@ b b b b b b b b b b b b b b b b
 . . . . . . . . . . . . . . . . 
 `;
             case "image25":
-            case "Enemy3":return img`
+            case "Enemy4":return img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -463,6 +463,25 @@ b b b b b b b b b b b b b b b b
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
+`;
+            case "image26":
+            case "floorLight0":return img`
+d 1 1 1 1 1 1 b d 1 1 1 1 1 1 b 
+1 d d d d d d b 1 d d d d d d b 
+1 d d d d d d b 1 d d d d d d b 
+1 d d d d d d b 1 d d d d d d b 
+1 d d d d d d b 1 d d d d d d b 
+1 d d d d d d b 1 d d d d d d b 
+1 d d d d d d d 1 d d d d d d d 
+b b b b b b d e b b b b b b d e 
+d 1 1 1 1 1 1 b d 1 1 1 1 1 1 b 
+1 d d d d d d b 1 d d d d d d b 
+1 d d d d d d b 1 d d d d d d b 
+1 d d d d d d b 1 d d d d d d b 
+1 d d d d d d b 1 d d d d d d b 
+1 d d d d d d b 1 d d d d d d b 
+1 d d d d d d d 1 d d d d d d d 
+b b b b b b d e d b b b b b b e 
 `;
         }
         return null;
